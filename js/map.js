@@ -77,16 +77,23 @@ function populate(results, status) {
 }
 
 /*
- * For each museum, we create and place a marker that when clicked
- * will display an infoWindow with information retrieved using
- * AJAX calls
+ * For each museum, create and place a marker that when clicked
+ * will display an infoWindow featuring information from
+ * Google Places and Wikipedia
  */
 function createMarker(place) {
+    // place the marker
     var marker = new google.maps.Marker({
         map: map,
         position: place.geometry.location,
         title: place.name
     });
+    
+    // save the photo url if existing
+    var photo = '';
+    if (place.photos) {
+        photo = place.photos[0].getUrl({'maxHeight': 150});
+    }
     
     google.maps.event.addListener(marker, 'click', function() {
         self = this;
@@ -97,21 +104,18 @@ function createMarker(place) {
             self.setAnimation(null);
         }, 2000);
         
-        // wikipedia AJAX call
+        // Wikipedia AJAX call
         var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + place.name + '&format=json&callback=WikiCallback';
-        
-        var errorCheck = setTimeout(function() {
-            windowContent(place.name, place.vicinity, 'Wikipedia information not available.');
-            infoWindow.open(map, self);
-        }, 3000);
         
         $.ajax({
             url: wikiUrl,
             dataType: 'jsonp',
             success: function(data) {
                 if (data[2].length !== 0) {
-                    clearTimeout(errorCheck);
-                    windowContent(place.name, place.vicinity, data[2][0]);
+                    windowContent(place.name, place.vicinity, data[2][0], photo);
+                    infoWindow.open(map, self);
+                } else {
+                    windowContent(place.name, place.vicinity, '', photo);
                     infoWindow.open(map, self);
                 }
             }
@@ -120,6 +124,6 @@ function createMarker(place) {
     markers.push(marker);
 }
 
-function windowContent(name, address, message) {
-        infoWindow.setContent('<h5>' + name + '<br><small>' + address + '</small></h5>' + '<p>' + message + '</p><br>');
+function windowContent(name, address, message, photo) {
+        infoWindow.setContent('<h4>' + name + '<br><small>' + address + '</small></h4>' + '<p>' + message + '</p>' + '<img src="' + photo + '" class="img-rounded">');
         }
