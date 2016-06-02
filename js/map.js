@@ -3,7 +3,7 @@ var markers = [];
 var infoWindow;
 
 var options = {
-    center: {lat: -37.879791, lng: 145.159387},
+    center: {lat: -37.8142, lng: 144.963},
     zoom: 12,
     mapTypeControl: false,
     streetViewControl: false
@@ -76,6 +76,11 @@ function populate(results, status) {
     }
 }
 
+/*
+ * For each museum, we create and place a marker that when clicked
+ * will display an infoWindow with information retrieved using
+ * AJAX calls
+ */
 function createMarker(place) {
     var marker = new google.maps.Marker({
         map: map,
@@ -84,10 +89,37 @@ function createMarker(place) {
     });
     
     google.maps.event.addListener(marker, 'click', function() {
-        // make an AJAX call to wikipedia here
-        infoWindow.setContent(place.name + place.vicinity);
-        infoWindow.open(map, this);
+        self = this;
+        
+        // bounce the marker
+        this.setAnimation(google.maps.Animation.BOUNCE);
+        setTimeout(function() {
+            self.setAnimation(null);
+        }, 2000);
+        
+        // wikipedia AJAX call
+        var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + place.name + '&format=json&callback=WikiCallback';
+        
+        var errorCheck = setTimeout(function() {
+            windowContent(place.name, place.vicinity, 'Wikipedia information not available.');
+            infoWindow.open(map, self);
+        }, 3000);
+        
+        $.ajax({
+            url: wikiUrl,
+            dataType: 'jsonp',
+            success: function(data) {
+                if (data[2].length !== 0) {
+                    clearTimeout(errorCheck);
+                    windowContent(place.name, place.vicinity, data[2][0]);
+                    infoWindow.open(map, self);
+                }
+            }
+        });
     });
-    
     markers.push(marker);
 }
+
+function windowContent(name, address, message) {
+        infoWindow.setContent('<h5>' + name + '<br><small>' + address + '</small></h5>' + '<p>' + message + '</p><br>');
+        }
