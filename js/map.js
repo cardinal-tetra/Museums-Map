@@ -1,7 +1,7 @@
 var map;
 var markers = [];
 var infoWindow;
-
+var geocoder;
 var options = {
     center: {lat: -37.8142, lng: 144.963},
     zoom: 12,
@@ -31,10 +31,10 @@ function setPos(position) {
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), options);
-
     infoWindow = new google.maps.InfoWindow({
         maxWidth: 300
     });
+    geocoder = new google.maps.Geocoder();
     
     getMuseums();
 }
@@ -46,7 +46,7 @@ function initMap() {
 function getMuseums() {
     var center = map.getCenter();
     var parameters = new request(center.lat(), center.lng());
-    
+    clearMarkers();
     service = new google.maps.places.PlacesService(map);
     service.nearbySearch(parameters, populate);
 }
@@ -57,6 +57,13 @@ function request(y, x) {
     this.types = ['museum'];
 }
 
+function clearMarkers() {
+    for (var i = 0, j = markers.length; i < j; i++) {
+        markers[i].setMap(null);
+    }
+    markers = [];
+}
+
 /*
  * Iterate through our museums array to populate the map with markers
  * and list with items
@@ -64,7 +71,7 @@ function request(y, x) {
 function populate(results, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
         // we are aiming for 10 locations, but will make do if less
-        var j = 10;
+        var j = 8;
         if (results.length < 10) {
             j = results.length;
         }
@@ -98,11 +105,16 @@ function createMarker(place) {
     google.maps.event.addListener(marker, 'click', function() {
         self = this;
         
-        // bounce the marker
-        this.setAnimation(google.maps.Animation.BOUNCE);
-        setTimeout(function() {
-            self.setAnimation(null);
-        }, 2000);
+        // set map to and bounce the marker
+        map.setCenter(self.getPosition());
+        
+        if (self.getAnimation() == null) {
+            self.setAnimation(google.maps.Animation.BOUNCE);
+            setTimeout(function() {
+                self.setAnimation(null);
+            }, 2000);
+        }
+        
         
         // Wikipedia AJAX call
         var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + place.name + '&format=json&callback=WikiCallback';
@@ -125,5 +137,22 @@ function createMarker(place) {
 }
 
 function windowContent(name, address, message, photo) {
-        infoWindow.setContent('<h4>' + name + '<br><small>' + address + '</small></h4>' + '<p>' + message + '</p>' + '<img src="' + photo + '" class="img-rounded">');
+        infoWindow.setContent('<h5>' + name + '<br><small>' + address + '</small></h5>' + '<p>' + message + '</p>' + '<img src="' + photo + '" class="img-rounded">');
         }
+
+/*
+ * Users can center map on location of choice, and upon doing so
+ * markers will be relaid and list items will be regnerated
+ */
+$('#location').keyup(function(e) {
+    if (e.keyCode == 13) {
+        var location = $('#location').val();
+        geocoder.geocode({'address': location}, function(result, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                map.setCenter(result[0].geometry.location);
+                map.setZoom(12);
+                getMuseums();
+            }
+        })
+    }
+});

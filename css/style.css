@@ -7,3 +7,17 @@ html, body {
 #map {
     height: 100%;
 }
+
+#geocode {
+    position: absolute;
+    left: 30px;
+    top: 30px;
+    z-index: 3;
+}
+
+#location {
+    color: grey;
+}
+
+
+
