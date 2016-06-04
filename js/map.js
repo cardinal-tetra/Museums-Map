@@ -32,7 +32,7 @@ function setPos(position) {
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), options);
     infoWindow = new google.maps.InfoWindow({
-        maxWidth: 300
+        maxWidth: 275,
     });
     geocoder = new google.maps.Geocoder();
     
@@ -99,22 +99,19 @@ function createMarker(place) {
     // save the photo url if existing
     var photo = '';
     if (place.photos) {
-        photo = place.photos[0].getUrl({'maxHeight': 150});
+        photo = place.photos[0].getUrl({'maxHeight': 125});
     }
     
     google.maps.event.addListener(marker, 'click', function() {
         self = this;
         
         // set map to and bounce the marker
-        map.setCenter(self.getPosition());
+        map.panTo(self.getPosition());
         
-        if (self.getAnimation() == null) {
-            self.setAnimation(google.maps.Animation.BOUNCE);
-            setTimeout(function() {
-                self.setAnimation(null);
-            }, 2000);
-        }
-        
+        self.setAnimation(google.maps.Animation.BOUNCE);
+        setTimeout(function() {
+            self.setAnimation(700);
+        }, 2100);
         
         // Wikipedia AJAX call
         var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + place.name + '&format=json&callback=WikiCallback';
@@ -142,17 +139,24 @@ function windowContent(name, address, message, photo) {
 
 /*
  * Users can center map on location of choice, and upon doing so
- * markers will be relaid and list items will be regnerated
+ * markers will be replaced and list items will be regenerated
  */
 $('#location').keyup(function(e) {
     if (e.keyCode == 13) {
         var location = $('#location').val();
         geocoder.geocode({'address': location}, function(result, status) {
             if (status == google.maps.GeocoderStatus.OK) {
-                map.setCenter(result[0].geometry.location);
+                map.panTo(result[0].geometry.location);
                 map.setZoom(12);
                 getMuseums();
             }
         })
     }
+});
+
+/*
+ * Clicking on the museum icon will refresh markers and list items
+ */
+$('.fa-university').click(function() {
+    getMuseums();
 });

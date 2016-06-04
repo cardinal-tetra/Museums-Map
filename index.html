@@ -6,12 +6,17 @@
     <title>Museums Map</title>
     <link rel='stylesheet' href='css/style.css'>
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
 <body>
-  <div class='col-xs-2' id='geocode'>
-    <input class='form-control' id='location' placeholder='Search Location' value=''>
-  </div>
+    <div id='geocode' class='input-group'>
+        <input class='form-control' id='location' placeholder='Search Location'><span class='input-group-addon'><i class='fa fa-search fa-fw'></i></span>
+    </div>
     <div id='map'></div>
+    <div id='itemsBox'>
+        <h4><i class='fa fa-university fa-2x'></i>  Museums Map</h4>
+        <div id='list'></div>
+    </div>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
     <script src='js/knockout-3.4.0.js'></script>
     <script src='js/map.js'></script>
