@@ -32,7 +32,7 @@ function setPos(position) {
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), options);
     infoWindow = new google.maps.InfoWindow({
-        maxWidth: 275,
+        maxWidth: 300,
     });
     geocoder = new google.maps.Geocoder();
     
@@ -46,7 +46,7 @@ function initMap() {
 function getMuseums() {
     var center = map.getCenter();
     var parameters = new request(center.lat(), center.lng());
-    clearMarkers();
+    clearOld();
     service = new google.maps.places.PlacesService(map);
     service.nearbySearch(parameters, populate);
 }
@@ -57,11 +57,12 @@ function request(y, x) {
     this.types = ['museum'];
 }
 
-function clearMarkers() {
+function clearOld() {
     for (var i = 0, j = markers.length; i < j; i++) {
         markers[i].setMap(null);
     }
     markers = [];
+    ViewModel.reset();
 }
 
 /*
@@ -78,7 +79,7 @@ function populate(results, status) {
         
         for (var i = 0; i < j; i++) {
             createMarker(results[i]);
-            // TODO: create list item
+            ViewModel.items.push(new Item(results[i]));
         }
     }
 }
@@ -104,14 +105,7 @@ function createMarker(place) {
     
     google.maps.event.addListener(marker, 'click', function() {
         self = this;
-        
-        // set map to and bounce the marker
         map.panTo(self.getPosition());
-        
-        self.setAnimation(google.maps.Animation.BOUNCE);
-        setTimeout(function() {
-            self.setAnimation(700);
-        }, 2100);
         
         // Wikipedia AJAX call
         var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + place.name + '&format=json&callback=WikiCallback';

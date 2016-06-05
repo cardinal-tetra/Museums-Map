@@ -15,7 +15,12 @@
     <div id='map'></div>
     <div id='itemsBox'>
         <h4><i class='fa fa-university fa-2x'></i>  Museums Map</h4>
-        <div id='list'></div>
+        <div class='list' data-bind='foreach: items'>
+            <div class='items'>
+                <h5 data-bind='text: name'></h5>
+                <p data-bind='text: rating'></p>
+            </div>
+        </div>
     </div>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
     <script src='js/knockout-3.4.0.js'></script>
