@@ -128,7 +128,7 @@ function createMarker(place) {
 }
 
 function windowContent(name, address, message, photo) {
-        infoWindow.setContent('<h5>' + name + '<br><small>' + address + '</small></h5>' + '<p>' + message + '</p>' + '<img src="' + photo + '" class="img-rounded">');
+        infoWindow.setContent( '<img src="' + photo + '" class="img-rounded">' + '<h5>' + name + '<br><small>' + address + '</small></h5>' + '<p>' + message + '</p>');
         }
 
 /*

@@ -10,17 +10,14 @@
 </head>
 <body>
     <div id='geocode' class='input-group'>
-        <input class='form-control' id='location' placeholder='Search Location'><span class='input-group-addon'><i class='fa fa-search fa-fw'></i></span>
+        <input class='form-control' id='location' placeholder='Search Location'><span class='input-group-addon'><i class='fa fa-globe fa-fw'></i></span>
     </div>
     <div id='map'></div>
-    <div id='itemsBox'>
-        <h4><i class='fa fa-university fa-2x'></i>  Museums Map</h4>
-        <div class='list' data-bind='foreach: items'>
-            <div class='items'>
-                <h5 data-bind='text: name'></h5>
-                <p data-bind='text: rating'></p>
-            </div>
-        </div>
+    <div id='header'>
+        <h5><i class='fa fa-bank fa-2x'></i>  Museums Map</h5>
+    </div>
+    <div id='search' class='input-group'>
+        <span class='input-group-addon'><i class='fa fa-bank fa-fw'></i></span><input class='form-control' id='filter' placeholder='Filter Results'><span class='input-group-addon'><i class='fa fa-search fa-fw'></i></span>
     </div>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
     <script src='js/knockout-3.4.0.js'></script>

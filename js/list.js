@@ -1,9 +1,8 @@
 /*
  * Item formats raw data returned by Google Places into an
- * object containing observables that is appended to the 
+ * object containing observables that is appended to the
  * ViewModel's observable array
  */
-
 function Item(result) {
     this.name = ko.observable(result.name);
     this.visible = ko.observable(true);
