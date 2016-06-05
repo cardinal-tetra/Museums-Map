@@ -17,9 +17,9 @@
         <span class='input-group-addon refresh'><i class='fa fa-university fa-fw'></i></span><input class='form-control' id='filter' placeholder='Filter Museums'><span class='input-group-addon'><i class='fa fa-search fa-fw'></i></span>
     </div>
     <div id='list' data-bind='foreach: items'>
-        <div id='item'>
+        <div id='item' data-bind='if: visible, click: $parent.marker'>
             <h5 data-bind='text: name'></h5>
-            <p><small>We also want ratings and opening</small></p>
+            <p ><small data-bind='text: rating'></small></p>
         </div>
     </div>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>

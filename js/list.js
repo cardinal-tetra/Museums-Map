@@ -6,7 +6,12 @@
 function Item(result) {
     this.name = ko.observable(result.name);
     this.visible = ko.observable(true);
-    this.rating = ko.observable('Rating: ' + result.rating);
+    
+    if (result.rating !== undefined) {
+        this.rating = ko.observable('Rating: ' + result.rating);
+    } else {
+        this.rating = ko.observable('Rating: None');
+    }
     
     if (result.opening_hours) {
         this.open = ko.observable(result.opening_hours.open_now);
@@ -19,8 +24,14 @@ function Item(result) {
  */
 var ViewModel = {
     items : ko.observableArray(''),
+    
     reset : function() {
         this.items([]);
+    },
+    
+    marker: function(data, event) {
+        var index = ko.contextFor(event.target).$index();
+        google.maps.event.trigger(markers[index], 'click');
     }
 };
 
