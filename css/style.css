@@ -16,33 +16,52 @@ html, body {
     position: absolute;
     top: 30px;
     left: 30px;
-    z-index: 3;
     width: 200px;
+    z-index: 3;
 }
 
-/*Listview Header*/
+/*Listview Filter*/
 
-#header {
+#search {
     position: absolute;
     top: 30px;
     right: 30px;
     width: 300px;
-    height: 50px;
-    background-color: white;
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
-    border: 1px solid lightgrey;
+    z-index: 3;
 }
 
-#header h5 {
-    margin-left: 80px;
+.refresh:hover {
+    background-color: dimgrey;
+    color: whitesmoke;
 }
 
-/*Listview Filter*/
-#search {
+/*Listview Items*/
+
+#list {
     position: absolute;
-    top: 79px;
+    top: 63px;
     right: 30px;
     width: 300px;
-    border-radius: 0px !important;
+    height: 300px;
+    background-color: white;
+    border: 1px solid lightgrey;
+    z-index: 2;
+    border-radius: 5px;
+    overflow-y: auto;
+}
+
+#item {
+    height: 75px;
+    width: 297px;
+    padding-left: 20px;
+    border-bottom: 1px solid lightgrey;
+}
+
+#item h5 {
+    margin-top: 0;
+    padding-top: 15px;
+}
+
+#item:hover {
+    background-color: whitesmoke;
 }

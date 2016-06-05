@@ -32,7 +32,7 @@ function setPos(position) {
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), options);
     infoWindow = new google.maps.InfoWindow({
-        maxWidth: 300,
+        maxWidth: 250,
     });
     geocoder = new google.maps.Geocoder();
     
@@ -128,7 +128,7 @@ function createMarker(place) {
 }
 
 function windowContent(name, address, message, photo) {
-        infoWindow.setContent( '<img src="' + photo + '" class="img-rounded">' + '<h5>' + name + '<br><small>' + address + '</small></h5>' + '<p>' + message + '</p>');
+        infoWindow.setContent( '<img src="' + photo + '" class="img-rounded">' + '<h5>' + name + '<br><small>' + address + '</small></h5>' + '<p><small>' + message + '<small/></p>');
         }
 
 /*

@@ -13,11 +13,14 @@
         <input class='form-control' id='location' placeholder='Search Location'><span class='input-group-addon'><i class='fa fa-globe fa-fw'></i></span>
     </div>
     <div id='map'></div>
-    <div id='header'>
-        <h5><i class='fa fa-bank fa-2x'></i>  Museums Map</h5>
-    </div>
     <div id='search' class='input-group'>
-        <span class='input-group-addon'><i class='fa fa-bank fa-fw'></i></span><input class='form-control' id='filter' placeholder='Filter Results'><span class='input-group-addon'><i class='fa fa-search fa-fw'></i></span>
+        <span class='input-group-addon refresh'><i class='fa fa-university fa-fw'></i></span><input class='form-control' id='filter' placeholder='Filter Museums'><span class='input-group-addon'><i class='fa fa-search fa-fw'></i></span>
+    </div>
+    <div id='list' data-bind='foreach: items'>
+        <div id='item'>
+            <h5 data-bind='text: name'></h5>
+            <p><small>We also want ratings and opening</small></p>
+        </div>
     </div>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
     <script src='js/knockout-3.4.0.js'></script>
