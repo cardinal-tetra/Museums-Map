@@ -110,10 +110,16 @@ function createMarker(place) {
         // Wikipedia AJAX call
         var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + place.name + '&format=json&callback=WikiCallback';
         
+        var errorCheck = setTimeout(function() {
+            windowContent(place.name, place.vicinity, '', photo);
+            infoWindow.open(map, self);
+        }, 3000);
+        
         $.ajax({
             url: wikiUrl,
             dataType: 'jsonp',
             success: function(data) {
+                clearTimeout(errorCheck);
                 if (data[2].length !== 0) {
                     windowContent(place.name, place.vicinity, data[2][0], photo);
                     infoWindow.open(map, self);

@@ -65,3 +65,23 @@ html, body {
 #item:hover {
     background-color: whitesmoke;
 }
+
+/*Media Queries*/
+
+@media screen and (max-width: 880px) {
+    #search {
+        display: none;
+    }
+    #geocode {
+        top: 5px;
+        left: 5px;
+    }
+    #list {
+        top: auto;
+        bottom: 30px;
+        left: 5px;
+        height: 150px;
+        width: 80%;
+        max-width: 300px;
+    }
+}
