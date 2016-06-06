@@ -108,7 +108,7 @@ function createMarker(place) {
         map.panTo(self.getPosition());
         
         // Wikipedia AJAX call
-        var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + place.name + '&format=json&callback=WikiCallback';
+        var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + place.name + '&format=json&callback=WikiCallback';
         
         var errorCheck = setTimeout(function() {
             windowContent(place.name, place.vicinity, '', photo);
