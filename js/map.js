@@ -147,10 +147,3 @@ $('#location').keyup(function(e) {
         })
     }
 });
-
-/*
- * Clicking on the museum icon will refresh markers and list items
- */
-$('.fa-university').click(function() {
-    getMuseums();
-});
