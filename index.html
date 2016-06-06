@@ -10,7 +10,7 @@
 </head>
 <body>
     <div id='geocode' class='input-group'>
-        <input class='form-control' id='location' placeholder='Search Location'><span class='input-group-addon'><i class='fa fa-globe fa-fw'></i></span>
+        <input class='form-control' data-bind='textInput: location, event: {keyup: recenter}'placeholder='Search Location'><span class='input-group-addon refresh' data-bind='click: recenter'><i class='fa fa-globe fa-fw'></i></span>
     </div>
     <div id='map'></div>
     <div id='search' class='input-group'>
@@ -19,7 +19,7 @@
     <div id='list' data-bind='foreach: items'>
         <div id='item' data-bind='visible: visible, click: $parent.marker'>
             <h5 data-bind='text: name'></h5>
-            <p ><small data-bind='text: rating'></small></p>
+            <p><small data-bind='text: rating'></small></p>
         </div>
     </div>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>

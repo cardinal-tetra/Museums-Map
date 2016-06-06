@@ -12,15 +12,11 @@ function Item(result) {
     } else {
         this.rating = ko.observable('Rating: None');
     }
-    
-    if (result.opening_hours) {
-        this.open = ko.observable(result.opening_hours.open_now);
-    }
 }
 
 /*
- * ViewModel holds the array of museums that are rendered
- * on our list view.
+ * ViewModel contains a range of data and methods bound to
+ * elements in the View
  */
 var ViewModel = {
     // store array of museum items which can be emptied
@@ -30,7 +26,7 @@ var ViewModel = {
         this.items([]);
     },
     
-    // find new array of museums when element clicked
+    // clicking icon retrieves new museums data
     refresh: function() {
         getMuseums();
     },
@@ -51,13 +47,30 @@ var ViewModel = {
         for (var i = 0; i < j; i++) {
             if (this.items()[i].name().match(this.term) == null) {
                 this.items()[i].visible(false);
+                markers[i].setMap(null);
             }
         }
         
         if (this.filterTerm() == '') {
             for (var i = 0; i < j; i++) {
                 this.items()[i].visible(true);
+                markers[i].setMap(map);
             }
+        }
+    },
+    
+    // recenter map on chosen location, a new set of markers and list items will be generated
+    location: ko.observable(''),
+    
+    recenter : function(data, event) {
+        if (event.keyCode == 13 || event.type == 'click') {
+            geocoder.geocode({'address': this.location()}, function(result, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    map.panTo(result[0].geometry.location);
+                    map.setZoom(12);
+                    getMuseums();
+                }
+            })
         }
     }
 };

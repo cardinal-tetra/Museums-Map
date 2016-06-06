@@ -130,20 +130,3 @@ function createMarker(place) {
 function windowContent(name, address, message, photo) {
         infoWindow.setContent( '<img src="' + photo + '" class="img-rounded">' + '<h5>' + name + '<br><small>' + address + '</small></h5>' + '<p><small>' + message + '<small/></p>');
         }
-
-/*
- * Users can center map on location of choice, and upon doing so
- * markers will be replaced and list items will be regenerated
- */
-$('#location').keyup(function(e) {
-    if (e.keyCode == 13) {
-        var location = $('#location').val();
-        geocoder.geocode({'address': location}, function(result, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                map.panTo(result[0].geometry.location);
-                map.setZoom(12);
-                getMuseums();
-            }
-        })
-    }
-});
