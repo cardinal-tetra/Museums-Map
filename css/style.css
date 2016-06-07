@@ -71,12 +71,38 @@ html, body {
 @media screen and (max-width: 880px) {
     #list {
         top: auto;
-        bottom: 50px;
+        bottom: 30px;
         left: 30px;
-        height: 300px;
+        height: 200px;
     }
 }
 
-@media screen and (max-width: ) {
-    
+@media screen and (max-width: 500px) {
+    #geocode {
+        top: 2px;
+        left: 5px;
+    }
+    #list {
+        left: 5px;
+        width : 270px;
+        height: 150px;
+    }
+    #item {
+        width: 268px;
+        height: 50px;
+    }
+    #item p {
+        display: none;
+    }
+    #search {
+        top: auto;
+        bottom: 179px;
+        left: 5px;
+    }
+    .filter {
+        visibility: hidden;
+    }
+    .photo {
+        display: none;
+    }
 }

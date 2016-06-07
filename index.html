@@ -14,7 +14,7 @@
     </div>
     <div id='map'></div>
     <div id='search' class='input-group'>
-        <span class='input-group-addon refresh' data-bind='click: refresh'><i class='fa fa-university fa-fw'></i></span><input class='form-control' data-bind='textInput: filterTerm, event: {keyup: filter}' placeholder='Filter Museums'><span class='input-group-addon'><i class='fa fa-search fa-fw'></i></span>
+        <span class='input-group-addon refresh' data-bind='click: refresh'><i class='fa fa-university fa-fw'></i></span><input class='form-control filter' data-bind='textInput: filterTerm, event: {keyup: filter}' placeholder='Filter Museums'><span class='input-group-addon filter'><i class='fa fa-search fa-fw'></i></span>
     </div>
     <div id='list' data-bind='foreach: items'>
         <div id='item' data-bind='visible: visible, click: $parent.marker'>
