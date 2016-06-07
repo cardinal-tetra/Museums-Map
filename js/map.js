@@ -1,3 +1,6 @@
+/*
+ * Declare global variables
+ */
 var map;
 var markers = [];
 var infoWindow;
@@ -10,10 +13,10 @@ var options = {
 };
 
 /*
- * Check if the browser supports geolocation, if it does we will try
- * to obtain the user's position and center our map on it, if there
- * is an error or geolocation is not supported then we will center
- * our map on the default position
+ * Check if the browser supports geolocation,
+ * if so we will try to center our map on the user's location,
+ * if there is an error or geolocation is not supported then
+ * we will center on the default position
  */
 function geolocation() {
     if (navigator.geolocation) {
@@ -71,9 +74,9 @@ function clearOld() {
  */
 function populate(results, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
-        // we are aiming for 10 locations, but will make do if less
+        // prefer 8 locations, but will make do with less
         var j = 8;
-        if (results.length < 10) {
+        if (results.length < j) {
             j = results.length;
         }
         
@@ -89,18 +92,16 @@ function populate(results, status) {
  * will display an infoWindow featuring information from
  * Google Places and Wikipedia
  */
-function createMarker(place) {
-    // place the marker
+function createMarker(result) {
     var marker = new google.maps.Marker({
         map: map,
-        position: place.geometry.location,
-        title: place.name
+        position: result.geometry.location,
+        title: result.name
     });
     
-    // save the photo url if existing
     var photo = '';
-    if (place.photos) {
-        photo = place.photos[0].getUrl({'maxHeight': 125});
+    if (result.photos) {
+        photo = result.photos[0].getUrl({'maxHeight': 125});
     }
     
     google.maps.event.addListener(marker, 'click', function() {
@@ -108,10 +109,10 @@ function createMarker(place) {
         map.panTo(self.getPosition());
         
         // Wikipedia AJAX call
-        var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + place.name + '&format=json&callback=WikiCallback';
+        var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + result.name + '&format=json&callback=WikiCallback';
         
         var errorCheck = setTimeout(function() {
-            windowContent(place.name, place.vicinity, '', photo);
+            windowContent(result.name, result.vicinity, '', photo);
             infoWindow.open(map, self);
         }, 3000);
         
@@ -121,10 +122,10 @@ function createMarker(place) {
             success: function(data) {
                 clearTimeout(errorCheck);
                 if (data[2].length !== 0) {
-                    windowContent(place.name, place.vicinity, data[2][0], photo);
+                    windowContent(result.name, result.vicinity, data[2][0], photo);
                     infoWindow.open(map, self);
                 } else {
-                    windowContent(place.name, place.vicinity, '', photo);
+                    windowContent(result.name, result.vicinity, '', photo);
                     infoWindow.open(map, self);
                 }
             }
@@ -134,5 +135,5 @@ function createMarker(place) {
 }
 
 function windowContent(name, address, message, photo) {
-        infoWindow.setContent( '<img src="' + photo + '" class="img-rounded">' + '<h5>' + name + '<br><small>' + address + '</small></h5>' + '<p><small>' + message + '<small/></p>');
+            infoWindow.setContent( '<img src="' + photo + '" class="img-rounded photo">' + '<h5>' + name + '<br><small>' + address + '</small></h5>' + '<p><small>' + message + '<small/></p>');
         }

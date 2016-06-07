@@ -45,15 +45,15 @@ html, body {
     height: 300px;
     background-color: white;
     border: 1px solid lightgrey;
-    z-index: 2;
     border-radius: 5px;
     overflow-y: auto;
+    z-index: 3;
 }
 
 #item {
     height: 75px;
-    width: 297px;
-    padding-left: 20px;
+    width: 299px;
+    padding-left: 15px;
     border-bottom: 1px solid lightgrey;
 }
 
@@ -66,22 +66,17 @@ html, body {
     background-color: whitesmoke;
 }
 
-/*Media Queries*/
+/* Media Queries*/
 
 @media screen and (max-width: 880px) {
-    #search {
-        display: none;
-    }
-    #geocode {
-        top: 5px;
-        left: 5px;
-    }
     #list {
         top: auto;
-        bottom: 30px;
-        left: 5px;
-        height: 150px;
-        width: 80%;
-        max-width: 300px;
+        bottom: 50px;
+        left: 30px;
+        height: 300px;
     }
+}
+
+@media screen and (max-width: ) {
+    
 }

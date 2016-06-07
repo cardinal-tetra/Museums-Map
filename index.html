@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html>
 <head>
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
@@ -10,7 +10,7 @@
 </head>
 <body>
     <div id='geocode' class='input-group'>
-        <input class='form-control' data-bind='textInput: location, event: {keyup: recenter}'placeholder='Search Location'><span class='input-group-addon refresh' data-bind='click: recenter'><i class='fa fa-globe fa-fw'></i></span>
+        <input class='form-control' data-bind='textInput: location, event: {keyup: recenter}' placeholder='Search Location'><span class='input-group-addon'><i class='fa fa-globe fa-fw'></i></span>
     </div>
     <div id='map'></div>
     <div id='search' class='input-group'>

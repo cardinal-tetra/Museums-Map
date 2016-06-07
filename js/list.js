@@ -27,18 +27,18 @@ var ViewModel = {
     },
     
     // clicking icon retrieves new museums data
-    refresh: function() {
+    refresh : function() {
         getMuseums();
     },
     
     // activate marker event when corresponding item clicked
-    marker: function(data, event) {
+    marker : function(data, event) {
         var index = ko.contextFor(event.target).$index();
         google.maps.event.trigger(markers[index], 'click');
     },
     
     // filter items and markers
-    filterTerm: ko.observable(''),
+    filterTerm : ko.observable(''),
     
     filter : function(data, event) {
         this.term = new RegExp(this.filterTerm(), 'gi');
@@ -63,9 +63,9 @@ var ViewModel = {
     location: ko.observable(''),
     
     recenter : function(data, event) {
-        if (event.keyCode == 13 || event.type == 'click') {
+        if (event.keyCode == 13) {
             geocoder.geocode({'address': this.location()}, function(result, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
+                if (status === google.maps.GeocoderStatus.OK) {
                     map.panTo(result[0].geometry.location);
                     map.setZoom(12);
                     getMuseums();
