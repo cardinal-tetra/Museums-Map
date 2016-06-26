@@ -5,3 +5,6 @@ The application itself is located within `index.html`. The 'js' folder contains 
 
 ###How to Use###
 The Museums Map application allows users to access information about established museums near their current location, or anywhere around the world. This information is presented graphically by markers on the map, or textually through a list view. Clicking on the marker or associated list item will cause an information window to open with additional details such as Wikipedia descriptions. Information can be manipulated further by typing into an input box which will filter markers and associated list items according to the terms entered. When the user first opens the application, it will attempt to display museums within the radius of their immediate location, but users can also browse any location around the world by entering terms into the location input. Users can also navigate using the graphical map, and press a refresh button to reveal museums, if any, in that location.
+
+###Ideas for Improvement###
+- Sometimes the AJAX call to Wikipedia for a particular location does not return any useful results. For example, Wikipedia may say that 'this term refers to ...' or 'this page is a redirect', but such unhelpful information is still displayed in the infoWindow. The user experience would be optimised if we filtered out such results.
