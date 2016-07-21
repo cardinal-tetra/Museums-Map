@@ -121,7 +121,7 @@ function createMarker(result) {
             dataType: 'jsonp',
             success: function(data) {
                 clearTimeout(errorCheck);
-                if (data[2].length !== 0 && data[2][0].search('refer', 'redirect') == -1) {
+                if (data[2].length !== 0 && data[2][0].search('refer') == -1 && data[2][0].search('redirect') == -1) {
                     windowContent(result.name, result.vicinity, data[2][0], photo);
                 } else {
                     windowContent(result.name, result.vicinity, '', photo);
