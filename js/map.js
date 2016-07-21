@@ -121,13 +121,12 @@ function createMarker(result) {
             dataType: 'jsonp',
             success: function(data) {
                 clearTimeout(errorCheck);
-                if (data[2].length !== 0) {
+                if (data[2].length !== 0 && data[2][0].search('refer', 'redirect') == -1) {
                     windowContent(result.name, result.vicinity, data[2][0], photo);
-                    infoWindow.open(map, self);
                 } else {
                     windowContent(result.name, result.vicinity, '', photo);
-                    infoWindow.open(map, self);
                 }
+                infoWindow.open(map, self);
             }
         });
     });
